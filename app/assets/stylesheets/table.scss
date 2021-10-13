@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+  text-align: center;
+
+  thead {
+    background-color: #979797;
+    color: white;
+    th {
+      padding: 0.5rem;
+    }
+
+    th:nth-child(1) {
+      width: 50%;
+      text-align: left;
+    }
+
+    th:nth-child(2) {
+      width: 5%;
+    }
+    th:nth-child(3) {
+      width: 5%;
+    }
+    th:nth-child(4) {
+      width: 20%;
+    }
+    th:nth-child(4) {
+      width: 20%;
+    }
+  }
+
+  tbody {
+    td {
+      padding: 0.5rem;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    tr:nth-child(even) {
+      background: #dddddd;
+    }
+    tr:nth-child(odd) {
+      background: #f0f0f0;
+    }
+  }
+}

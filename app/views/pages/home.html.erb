@@ -1,18 +1,46 @@
-<%= link_to 'Your Movies', movies_path %>
-<%= current_user.last_sign_in_at %>
+<div class="container center_middle">
 
-<table>
-  <thead>
-  <th>name</th>
-  <th>found on</th>
-  </thead>
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.name %></td>
-        <td><%= Time.now.utc %></td>
-      </tr>
-    <th>
-    <% end %>
-  </tbody>
-</table>
+  <div class="wrapper">
+
+    <div class="left_wrapper">
+      <div class="top_left">
+        <%= link_to 'Your Movies', movies_path %>
+        <%= current_user.last_sign_in_at %>
+        <button></button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>se</th>
+            <th>le</th>
+            <th>size</th>
+            <th>found on</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movies.each do |movie| %>
+            <tr>
+              <td class='left'><%= movie.name %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%= Time.now.utc %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="right_wrapper">
+      <div id="movie_search_wrapper">
+        <form action="" id='movie_search'>
+          <input type="text" placeholder='search movies' id='search_input'>
+          <%# <input type="submit" value="Submit"> %>
+        </form>
+        <ul id="results" class="list-inline"></ul>
+      </div>
+    </div>
+
+  </div>
+</div>

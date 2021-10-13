@@ -24,6 +24,13 @@
 }
 
 .container {
-  width: 50%;
+  width: 65%;
   margin: 0 auto;
+  max-width: 1255px;
+}
+
+.center_middle {
+  min-height: 50vh;
+  position: relative;
+  transform: translateY(20%);
 }
