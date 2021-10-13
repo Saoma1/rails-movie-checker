@@ -4,9 +4,6 @@
   background-repeat: no-repeat;
   background-position-x: center;
   height: 100vh;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
 }
 
 .auth_container {
@@ -19,6 +16,10 @@
   background-color: rgba(255, 255, 255, 0.1);
   padding: 1rem;
   color: white;
+
+  .error {
+    color: red;
+  }
 
   a {
     text-decoration: none;
@@ -56,10 +57,11 @@
     input {
       width: 100%;
       margin-top: 0.2rem;
-      margin-bottom: 1rem;
       height: 2rem;
     }
-
+    .input {
+      margin-bottom: 1rem;
+    }
     .user_remember_me {
       text-align: left;
       input {
