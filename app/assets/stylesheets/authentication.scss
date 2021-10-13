@@ -1,0 +1,91 @@
+.couch_background {
+  background-image: image-url("couch.jpg");
+  background-color: #cac8d5;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  height: 100vh;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+}
+
+.auth_container {
+  position: relative;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+
+  width: 30%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  color: white;
+
+  a {
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: white;
+  }
+  .auth_head {
+    padding-bottom: 2rem;
+
+    .head_links {
+      display: flex;
+      justify-content: space-around;
+      padding-bottom: 1rem;
+    }
+
+    .active {
+      color: #ff00ff;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+    }
+  }
+
+  .auth_inner {
+    display: table-caption;
+    width: 100%;
+
+    abbr {
+      text-decoration: none;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 0.2rem;
+      margin-bottom: 1rem;
+      height: 2rem;
+    }
+
+    .user_remember_me {
+      text-align: left;
+      input {
+        width: auto;
+        height: 1rem;
+      }
+    }
+  }
+
+  .btn_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  transition: background-color 0.4s ease-out;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ff00ff;
+    border-color: #ff00ff;
+    // color: white;
+  }
+}

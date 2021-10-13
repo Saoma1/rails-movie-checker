@@ -1,3 +1,17 @@
-<h1>Hello <%= current_user.username %></h1>
+<%= link_to 'Your Movies', movies_path %>
 
-<button>Make request</button>
+<table>
+  <thead>
+  <th>name</th>
+  <th>found on</th>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie.name %></td>
+        <td><%= Time.now.utc %></td>
+      </tr>
+    <th>
+    <% end %>
+  </tbody>
+</table>
