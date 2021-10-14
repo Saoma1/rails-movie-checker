@@ -11,6 +11,10 @@ const movieSearch = (searchInput) => {
       // <img src="https://image.tmdb.org/t/p/w185/${result.poster_path}" alt="">
       console.log(data);
       data.results.slice(0, 10).forEach((result) => {
+        result.addEventListener("click", (evt) => {
+          evt.preventDefault();
+          // console.log(search_input.value);
+        });
         const movie = `<li class="list-inline-item">
                     <p>${result.original_title}</p>
                     </li>`;

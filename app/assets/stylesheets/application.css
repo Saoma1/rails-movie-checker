@@ -32,5 +32,6 @@
 .center_middle {
   min-height: 50vh;
   position: relative;
-  transform: translateY(20%);
+  margin-top: 3rem;
+  /* transform: translateY(20%); */
 }
