@@ -1,5 +1,31 @@
 require("dotenv").config();
 
+const movieObjCreate = (movieObj) => {
+  const movieResult = document.getElementById("result");
+  const movieNameInput = document.getElementById("movie_name");
+  const movieName = document.querySelector(".movie_name");
+  const newMovieWrapper = document.querySelector(".new_movie_wrapper");
+  const newMovie = document.querySelector("#new_movie");
+  const movieDetails = document.querySelector("#movie_details");
+
+  movieNameInput.value = movieObj.name;
+  newMovieWrapper.classList.remove("hidden");
+  newMovie.classList.remove("hidden");
+  movieName.classList.add("hidden");
+
+  const moviePoster = `
+    <img src="https://image.tmdb.org/t/p/w154/${movieObj.img}" alt="${movieObj.name}">
+  `;
+  const movieDiv = `
+      <h3>${movieObj.name}</h3>
+      <p>release date: ${movieObj.release_date}</p>
+  `;
+
+  movieResult.insertAdjacentHTML("afterbegin", moviePoster);
+
+  movieDetails.insertAdjacentHTML("afterbegin", movieDiv);
+};
+
 const movieSearch = (searchInput) => {
   var key = process.env.TMDB_API_KEY;
   const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=`;
@@ -8,17 +34,34 @@ const movieSearch = (searchInput) => {
   fetch(`${searchUrl} + ${searchInput}`)
     .then((response) => response.json())
     .then((data) => {
-      // <img src="https://image.tmdb.org/t/p/w185/${result.poster_path}" alt="">
       console.log(data);
       data.results.slice(0, 10).forEach((result) => {
-        result.addEventListener("click", (evt) => {
-          evt.preventDefault();
-          // console.log(search_input.value);
-        });
-        const movie = `<li class="list-inline-item">
-                    <p>${result.original_title}</p>
-                    </li>`;
+        const movie = `
+          <li class="list-inline-item li"
+              data-name="${result.original_title}"
+              data-release_date="${result.release_date}"
+              data-genre="${result.genre_ids}"
+              data-img="${result.poster_path}"
+              >
+          <p">${result.original_title}</p>
+          </li>
+        `;
         results.insertAdjacentHTML("beforeend", movie);
+      });
+      const items = document.querySelectorAll(".li");
+      items.forEach((item) => {
+        item.addEventListener("click", (evt) => {
+          evt.preventDefault();
+          const fn = (data) => evt.currentTarget.getAttribute(data);
+          const movieObj = {
+            name: fn("data-name"),
+            release_date: fn("data-release_date"),
+            genre: fn("data-genre"),
+            img: fn("data-img"),
+          };
+          results.innerHTML = "";
+          movieObjCreate(movieObj);
+        });
       });
     });
   results.innerHTML = "";
@@ -26,10 +69,15 @@ const movieSearch = (searchInput) => {
 
 const tmdbSearch = () => {
   const search_input = document.querySelector("#search_input");
+  const movieResult = document.getElementById("result");
+  const movieDetails = document.querySelector("#movie_details");
+  const newMovie = document.querySelector("#new_movie");
 
   search_input.addEventListener("keyup", (evt) => {
     evt.preventDefault();
-    console.log(search_input.value);
+    movieResult.innerHTML = "";
+    movieDetails.innerHTML = "";
+    newMovie.classList.add("hidden");
     let input = search_input.value;
     movieSearch(input);
   });

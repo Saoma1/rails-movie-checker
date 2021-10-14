@@ -5,12 +5,38 @@
   align-items: flex-start;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .left_wrapper {
   flex: 1 auto;
   width: 75%;
 
   .top_left {
     margin-bottom: 2rem;
+
+    .new_movie_wrapper {
+      min-height: 237px;
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      flex-wrap: wrap;
+      // align-items: flex-start;
+
+      #result {
+        // flex: 1 auto;
+        // width: 20%;
+      }
+
+      .movie_details {
+        margin-left: 2rem;
+      }
+
+      #new_movie {
+        flex: 1 auto;
+      }
+    }
   }
 }
 
