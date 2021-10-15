@@ -20,13 +20,16 @@ const movieObjCreate = (movieObj) => {
 
   newMovie.classList.remove("hidden");
 
+  // date array
+  const dateArray = dateFormater(movieObj.release_date);
+
   // form input setters
-  movieNameInput.value = movieObj.name;
-  console.log(movieObj.release_date);
-  console.log(movieReleaseDateMonth);
-  console.log(dateFormater(movieObj.release_date));
-  // movieReleaseDate.value = movieObj.release_date;
-  movieGenre.value = movieObj.genre;
+  movieNameInput.value = movieObj.name; //done
+  [movieReleaseDateYear.value, movieReleaseDateMonth.value, movieReleaseDateDay.value] = dateArray; //done
+  // movieGenre.value = movieObj.genre;
+
+  // console.log(typeof movieObj.data('genre'));
+  console.log(movieObj.genre);
 
   newMovieWrapper.classList.remove("hidden");
   movieName.classList.add("hidden");
@@ -52,14 +55,15 @@ const movieSearch = (searchInput) => {
   fetch(`${searchUrl} + ${searchInput}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       data.results.slice(0, 10).forEach((result) => {
         const movie = `
           <li class="list-inline-item li"
               data-name="${result.original_title}"
               data-release_date="${result.release_date}"
-              data-genre="${result.genre_ids}"
-              data-img="${result.poster_path}"
+              data-genre='{name=2}'
+              data-img="${JSON.stringify(result.poster_path)}"
+              data-locations='[1,2,3]'
               >
           <p">${result.original_title}</p>
           </li>
@@ -67,9 +71,19 @@ const movieSearch = (searchInput) => {
         results.insertAdjacentHTML("beforeend", movie);
       });
       const items = document.querySelectorAll(".li");
+      console.log(items[0].dataset.genre);
+      console.log(typeof items[0].dataset.genre);
+
+      console.log($(items[0]).data("locations"));
+
       items.forEach((item) => {
         item.addEventListener("click", (evt) => {
           evt.preventDefault();
+
+          console.log(`genre dataset is ${typeof evt.currentTarget.dataset.genre}`);
+          console.log(`genre is ${typeof evt.currentTarget.getAttribute("data-genre")}`);
+          console.log(`location is ${typeof evt.currentTarget.getAttribute("data-locations")}`);
+
           const fn = (data) => evt.currentTarget.getAttribute(data);
           const movieObj = {
             name: fn("data-name"),
