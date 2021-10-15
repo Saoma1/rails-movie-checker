@@ -1,7 +1,6 @@
 class AddRowsColumnsToMovies < ActiveRecord::Migration[6.0]
   def change
-    add_column :movies, :seeders, :integer
-    add_column :movies, :leechers, :integer
-    add_column :movies, :size, :integer
+    add_column :movies, :genre, :integer
+    add_column :movies, :release_date, :datetime, precision: 6, null: false
   end
 end

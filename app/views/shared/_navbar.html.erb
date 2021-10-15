@@ -6,7 +6,10 @@
       <% else %>
         <h1> &#128075; sing up now</h1>
     <% end %>
-      <%= link_to root_url do %>
+      <%= link_to root_path do %>
+        <%= image_tag 'house.svg'%>
+      <% end %>
+      <%= link_to movies_path do %>
         <%= image_tag 'camera.svg'%>
       <% end %>
     </div>

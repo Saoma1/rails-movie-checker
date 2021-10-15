@@ -1,16 +1,34 @@
 require("dotenv").config();
 
+const dateFormater = (dateString) => {
+  return [Number(dateString.substring(0, 4)), Number(dateString.substring(5, 7)), Number(dateString.substring(8, 10))];
+};
+
 const movieObjCreate = (movieObj) => {
   const movieResult = document.getElementById("result");
-  const movieNameInput = document.getElementById("movie_name");
   const movieName = document.querySelector(".movie_name");
   const newMovieWrapper = document.querySelector(".new_movie_wrapper");
   const newMovie = document.querySelector("#new_movie");
   const movieDetails = document.querySelector("#movie_details");
 
-  movieNameInput.value = movieObj.name;
-  newMovieWrapper.classList.remove("hidden");
+  // form input getters
+  const movieNameInput = document.getElementById("movie_name");
+  const movieReleaseDateYear = document.getElementById("movie_release_date_1i");
+  const movieReleaseDateMonth = document.getElementById("movie_release_date_2i");
+  const movieReleaseDateDay = document.getElementById("movie_release_date_3i");
+  const movieGenre = document.getElementById("movie_genre");
+
   newMovie.classList.remove("hidden");
+
+  // form input setters
+  movieNameInput.value = movieObj.name;
+  console.log(movieObj.release_date);
+  console.log(movieReleaseDateMonth);
+  console.log(dateFormater(movieObj.release_date));
+  // movieReleaseDate.value = movieObj.release_date;
+  movieGenre.value = movieObj.genre;
+
+  newMovieWrapper.classList.remove("hidden");
   movieName.classList.add("hidden");
 
   const moviePoster = `
@@ -77,7 +95,7 @@ const tmdbSearch = () => {
     evt.preventDefault();
     movieResult.innerHTML = "";
     movieDetails.innerHTML = "";
-    newMovie.classList.add("hidden");
+    // newMovie.classList.add("hidden");
     let input = search_input.value;
     movieSearch(input);
   });
