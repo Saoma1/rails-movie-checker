@@ -4,6 +4,16 @@ const dateFormater = (dateString) => {
   return [Number(dateString.substring(0, 4)), Number(dateString.substring(5, 7)), Number(dateString.substring(8, 10))];
 };
 
+const setMovieGenres = (movieGenres) => {
+  const genreURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
+  fetch(genreURL)
+    .then((response) => response.json())
+    .then((data) => {
+      const ganreNames = movieGenres.map((genreId) => data.genres.find((x) => x.id === genreId).name);
+      return ganreNames;
+    });
+};
+
 const movieObjCreate = (movieObj) => {
   const movieResult = document.getElementById("result");
   const movieName = document.querySelector(".movie_name");
@@ -21,6 +31,7 @@ const movieObjCreate = (movieObj) => {
   newMovie.classList.remove("hidden");
 
   // date array
+  // console.log(movieObj.release_date);
   const dateArray = dateFormater(movieObj.release_date);
 
   // form input setters
@@ -48,48 +59,44 @@ const movieObjCreate = (movieObj) => {
 };
 
 const movieSearch = (searchInput) => {
-  var key = process.env.TMDB_API_KEY;
   const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=`;
   const results = document.querySelector("#results");
 
   fetch(`${searchUrl} + ${searchInput}`)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
       data.results.slice(0, 10).forEach((result) => {
+        // console.log(result);
         const movie = `
-          <li class="list-inline-item li"
-              data-name="${result.original_title}"
-              data-release_date="${result.release_date}"
-              data-genre='{name=2}'
-              data-img="${JSON.stringify(result.poster_path)}"
-              data-locations='[1,2,3]'
-              >
-          <p">${result.original_title}</p>
-          </li>
+        <li class="list-inline-item li"
+        data-name="${result.original_title}"
+        data-release_date="${result.release_date}"
+        data-genre="[${result.genre_ids}]"
+        data-img="${result.poster_path}"
+        >
+        <p">${result.original_title}</p>
+        </li>
         `;
         results.insertAdjacentHTML("beforeend", movie);
       });
       const items = document.querySelectorAll(".li");
-      console.log(items[0].dataset.genre);
-      console.log(typeof items[0].dataset.genre);
-
-      console.log($(items[0]).data("locations"));
 
       items.forEach((item) => {
         item.addEventListener("click", (evt) => {
           evt.preventDefault();
 
-          console.log(`genre dataset is ${typeof evt.currentTarget.dataset.genre}`);
-          console.log(`genre is ${typeof evt.currentTarget.getAttribute("data-genre")}`);
-          console.log(`location is ${typeof evt.currentTarget.getAttribute("data-locations")}`);
+          console.log(`genres data is ${typeof $(evt.currentTarget).data("genre")}`); // type working
+          console.log($(evt.currentTarget).data("genre")); // array working
+          const genreIds = $(evt.currentTarget).data("genre");
 
-          const fn = (data) => evt.currentTarget.getAttribute(data);
+          const genre = setMovieGenres(genreIds);
+          const fn = (data) => $(evt.currentTarget).data(data);
+
           const movieObj = {
-            name: fn("data-name"),
-            release_date: fn("data-release_date"),
-            genre: fn("data-genre"),
-            img: fn("data-img"),
+            name: fn("name"),
+            release_date: fn("release_date"),
+            genre: genre,
+            img: fn("img"),
           };
           results.innerHTML = "";
           movieObjCreate(movieObj);
