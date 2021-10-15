@@ -16,8 +16,10 @@ require("jquery");
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import { tmdbSearch } from "../custom/tmdb";
+// import { tmdbSearch } from "../custom/tmdb";
+import { searchListener } from "../custom/async";
 
 document.addEventListener("turbolinks:load", () => {
-  tmdbSearch();
+  // tmdbSearch();
+  searchListener();
 });

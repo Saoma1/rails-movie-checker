@@ -4,15 +4,27 @@ const dateFormater = (dateString) => {
   return [Number(dateString.substring(0, 4)), Number(dateString.substring(5, 7)), Number(dateString.substring(8, 10))];
 };
 
-const setMovieGenres = (movieGenres) => {
+async function setMovieGenres(movieGenres) {
   const genreURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`;
-  fetch(genreURL)
+
+  const data = await fetch(genreURL)
     .then((response) => response.json())
     .then((data) => {
-      const ganreNames = movieGenres.map((genreId) => data.genres.find((x) => x.id === genreId).name);
-      return ganreNames;
+      const genreNames = movieGenres.map((genreId) => data.genres.find((x) => x.id === genreId).name);
     });
-};
+
+  return genreNames;
+}
+
+async function fetchSearch(searchInput) {
+  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=`;
+
+  await fetch(`${searchUrl} + ${searchInput}`)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    });
+}
 
 const movieObjCreate = (movieObj) => {
   const movieResult = document.getElementById("result");
@@ -31,13 +43,12 @@ const movieObjCreate = (movieObj) => {
   newMovie.classList.remove("hidden");
 
   // date array
-  // console.log(movieObj.release_date);
   const dateArray = dateFormater(movieObj.release_date);
 
   // form input setters
   movieNameInput.value = movieObj.name; //done
   [movieReleaseDateYear.value, movieReleaseDateMonth.value, movieReleaseDateDay.value] = dateArray; //done
-  // movieGenre.value = movieObj.genre;
+  movieGenre.value = movieObj.genre;
 
   // console.log(typeof movieObj.data('genre'));
   console.log(movieObj.genre);
@@ -58,53 +69,53 @@ const movieObjCreate = (movieObj) => {
   movieDetails.insertAdjacentHTML("afterbegin", movieDiv);
 };
 
-const movieSearch = (searchInput) => {
-  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=`;
+async function movieSearch(searchInput) {
   const results = document.querySelector("#results");
+  const data = await fetchSearch(searchInput);
 
-  fetch(`${searchUrl} + ${searchInput}`)
-    .then((response) => response.json())
-    .then((data) => {
-      data.results.slice(0, 10).forEach((result) => {
-        // console.log(result);
-        const movie = `
-        <li class="list-inline-item li"
-        data-name="${result.original_title}"
-        data-release_date="${result.release_date}"
-        data-genre="[${result.genre_ids}]"
-        data-img="${result.poster_path}"
-        >
-        <p">${result.original_title}</p>
-        </li>
-        `;
-        results.insertAdjacentHTML("beforeend", movie);
-      });
-      const items = document.querySelectorAll(".li");
+  console.log(data);
 
-      items.forEach((item) => {
-        item.addEventListener("click", (evt) => {
-          evt.preventDefault();
+  data.results.slice(0, 10).forEach((result) => {
+    // console.log(result);
+    const movie = `
+    <li class="list-inline-item li"
+    data-name="${result.original_title}"
+    data-release_date="${result.release_date}"
+    data-genre="[${result.genre_ids}]"
+    data-img="${result.poster_path}"
+    >
+    <p">${result.original_title}</p>
+    </li>
+    `;
+    results.insertAdjacentHTML("beforeend", movie);
+  });
+  const items = document.querySelectorAll(".li");
 
-          console.log(`genres data is ${typeof $(evt.currentTarget).data("genre")}`); // type working
-          console.log($(evt.currentTarget).data("genre")); // array working
-          const genreIds = $(evt.currentTarget).data("genre");
+  items.forEach((item) => {
+    item.addEventListener("click", (evt) => {
+      evt.preventDefault();
 
-          const genre = setMovieGenres(genreIds);
-          const fn = (data) => $(evt.currentTarget).data(data);
+      console.log(`genres data is ${typeof $(evt.currentTarget).data("genre")}`); // type working
+      const genreIds = $(evt.currentTarget).data("genre");
 
-          const movieObj = {
-            name: fn("name"),
-            release_date: fn("release_date"),
-            genre: genre,
-            img: fn("img"),
-          };
-          results.innerHTML = "";
-          movieObjCreate(movieObj);
-        });
-      });
+      const genreNames = setMovieGenres(genreIds);
+      // const genreNames = await setMovieGenres(genreIds);
+      console.log(genreNames);
+
+      const fn = (data) => $(evt.currentTarget).data(data);
+
+      const movieObj = {
+        name: fn("name"),
+        release_date: fn("release_date"),
+        genre: genreNames,
+        img: fn("img"),
+      };
+      results.innerHTML = "";
+      movieObjCreate(movieObj);
     });
+  });
   results.innerHTML = "";
-};
+}
 
 const tmdbSearch = () => {
   const search_input = document.querySelector("#search_input");

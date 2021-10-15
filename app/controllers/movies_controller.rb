@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     # @movie.leechers = 10
     # @movie.size = 50
     if @movie.save
-      # redirect_to root_path
+      redirect_to movies_path
     else
       render :new
     end

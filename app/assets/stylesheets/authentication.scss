@@ -81,13 +81,14 @@
 .btn {
   padding: 1rem 2rem;
   font-size: 1.2rem;
-  transition: background-color 0.4s ease-out;
+  background-color: #a955c0;
+  transition: background-color 0.2s ease-out;
+  color: white;
   border: none;
 
   &:hover {
     cursor: pointer;
     background-color: #ff00ff;
     border-color: #ff00ff;
-    // color: white;
   }
 }

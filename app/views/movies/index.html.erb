@@ -5,16 +5,18 @@
       <div class="top_left">
 
           <div class="new_movie_wrapper hidden">
-            <div id="result">
+            <div id="movie_poster">
             </div>
 
             <div class="movie_details">
               <div id='movie_details'>
               </div>
               <%= simple_form_for(@movie) do |f| %>
-                <%= f.input :name, id: 'movie_name' %>
-                <%= f.input :release_date, as: :date, start_year: Date.today.year - 90, id: 'release_date' %>
-                <%= f.input :genre, id: 'genre' %>
+                <div class="form_inputs hidden">
+                  <%= f.input :name, id: 'movie_name' %>
+                  <%= f.input :release_date, as: :date, start_year: Date.today.year - 90, id: 'release_date' %>
+                  <%= f.input :genre, id: 'genre' %>
+                </div>
                 <%= f.submit class: 'btn', value: 'Add Movie' %>
               <% end %>
             </div>
@@ -22,24 +24,20 @@
           </div>
       </div>
 
-      <table>
-        <thead>
+      <table class='main_table' >
+        <thead id='added_movies'>
           <tr>
             <th>name</th>
-            <th>se</th>
-            <th>le</th>
-            <th>size</th>
-            <th>found on</th>
+            <th>genre</th>
+            <th>release date</th>
           </tr>
         </thead>
         <tbody>
           <% @movies.each do |movie| %>
             <tr>
               <td class='left'><%= movie.name %></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><%= Time.now.utc %></td>
+              <td><%= movie.genre %></td>
+              <td><%= movie.release_date.strftime("%Y-%m-%d") %></td>
             </tr>
           <% end %>
         </tbody>
