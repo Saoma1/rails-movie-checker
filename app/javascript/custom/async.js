@@ -27,6 +27,7 @@ async function fetchSearch(searchInput) {
 async function createMovieObject(clickedItem) {
   const fn = (data) => $(clickedItem).data(data);
   const genre = await fetchMovieGenres($(clickedItem).data("genre"));
+  sessionStorage.setItem("name", fn("name"));
   const movieObj = {
     name: fn("name"),
     release_date: fn("release_date"),
@@ -40,21 +41,23 @@ const createMovieList = (movieSearchResults) => {
   const listResults = document.querySelector("#results");
   movieSearchResults.slice(0, 10).forEach((result) => {
     const movie = `
+    <a href="./movies">
       <li class="list-inline-item li"
         data-name="${result.original_title}"
         data-release_date="${result.release_date}"
         data-genre="[${result.genre_ids}]"
         data-img="${result.poster_path}">
         <p">${result.original_title}</p>
-      </li>`;
+      </li>
+      </a>`;
     listResults.insertAdjacentHTML("beforeend", movie);
   });
 };
 
-const clearMovieList = () => {
+function clearMovieList() {
   const listResults = document.querySelector("#results");
   listResults.innerHTML = "";
-};
+}
 
 async function fillMovieForm(movieData) {
   // form input getters
@@ -86,23 +89,40 @@ async function setMovieDetails(movieData) {
   movieDetails.innerHTML = movieDetailsDiv;
 }
 
-const removeHidden = () => {
+function removeHidden() {
   const newMovieForm = document.querySelector(".new_movie_wrapper");
   newMovieForm.classList.remove("hidden");
-};
+}
 
 async function addClickListener() {
   const items = document.querySelectorAll(".li");
   items.forEach((item) => {
     item.addEventListener("click", async (evt) => {
       evt.preventDefault();
+      sessionStorage.clear();
       const movieData = await createMovieObject(evt.currentTarget);
+      sessionStorage.setItem("movieData", JSON.stringify(movieData));
       clearMovieList();
-      fillMovieForm(movieData);
-      setMovieDetails(movieData);
+      // fillMovieForm(movieData);
+      // setMovieDetails(movieData);
       removeHidden();
+      switchToSearch();
     });
   });
+}
+
+function switchToSearch() {
+  window.location.href = "./movies";
+}
+
+if (window.location.pathname == "/movies") {
+  window.onload = populateForm;
+}
+
+function populateForm() {
+  console.log(JSON.parse(sessionStorage.movieData));
+  const check = document.querySelector("#added_movies");
+  console.log(check);
 }
 
 async function searchListener() {

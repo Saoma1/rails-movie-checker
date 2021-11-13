@@ -1,0 +1,46 @@
+// Your CSS partials
+@import "authentication/_authentication";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "NimbusSanLRegular", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+}
+
+.container {
+  width: 65%;
+  margin: 0 auto;
+  max-width: 1255px;
+}
+
+.center_middle {
+  min-height: 50vh;
+  position: relative;
+  margin-top: 3rem;
+}
+
+:root,
+[data-theme="default"] {
+  --primary-bg-color: 32, 32, 32;
+  --primary-bg-aplha: 0 0% 16.9%;
+
+  --secondary-bg-color: 0, 0%, 12.5%;
+  --secondary-bg-color: 0, 0%, 12.5%;
+
+  --primary-font-color: 0, 0%, 100%;
+  /* --secondary-font-color-hover: #1f1e1e; */
+
+  --highlight-color: #f1d546;
+  --highlight-color-hover: #c2a202;
+}
+
+.movie_background {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), image-url("looper.jpg") no-repeat center center fixed;
+  background-color: #cac8d5;
+  background-size: cover;
+  height: 100vh;
+}

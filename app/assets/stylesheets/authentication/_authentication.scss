@@ -1,19 +1,11 @@
-.couch_background {
-  background-image: image-url("couch.jpg");
-  background-color: #cac8d5;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  height: 100vh;
-}
-
 .auth_container {
   position: relative;
   left: 50%;
   top: 20%;
   transform: translateX(-50%);
-
+  border-radius: 4px;
   width: 30%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--primary-bg-color), 0.9);
   padding: 1rem;
   color: white;
 
@@ -23,11 +15,20 @@
 
   a {
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: white;
   }
   .auth_head {
     padding-bottom: 2rem;
+
+    a {
+      font-size: 1.3rem;
+      transition: all 200ms ease-in-out;
+    }
+
+    a:hover {
+      color: var(--highlight-color);
+    }
 
     .head_links {
       display: flex;
@@ -36,7 +37,13 @@
     }
 
     .active {
-      color: #ff00ff;
+      color: var(--highlight-color);
+      font-weight: bold;
+    }
+
+    a.active {
+      pointer-events: none;
+      cursor: default;
     }
 
     hr {
@@ -76,19 +83,19 @@
     justify-content: center;
     margin-bottom: 1rem;
   }
-}
+  .btn {
+    background-color: var(--highlight-color);
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    transition: background-color 0.2s ease-out;
 
-.btn {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  background-color: #a955c0;
-  transition: background-color 0.2s ease-out;
-  color: white;
-  border: none;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #ff00ff;
-    border-color: #ff00ff;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--highlight-color-hover);
+      border-color: var(--highlight-color-hover);
+    }
   }
 }
