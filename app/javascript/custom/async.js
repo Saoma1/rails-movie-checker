@@ -60,7 +60,7 @@ function addKeyboardAccess() {
 
   for (var i = 0; i < listItems.length; i++) {
     listItems[i].addEventListener(
-      "keyup",
+      "keydown",
       function (event) {
         if (event.key === "ArrowUp") {
           console.log(listItems[i]);
@@ -128,20 +128,34 @@ function removeHidden() {
 }
 
 async function addClickListener() {
-  const items = document.querySelectorAll(".li");
-  items.forEach((item) => {
+  const itemsClick = document.querySelectorAll(".li");
+  const itemsKey = document.querySelectorAll("a");
+  itemsClick.forEach((item) => {
     item.addEventListener("click", async (evt) => {
       evt.preventDefault();
-      sessionStorage.clear();
-      const movieData = await createMovieObject(evt.currentTarget);
-      sessionStorage.setItem("movieData", JSON.stringify(movieData));
-      clearMovieList();
-      // fillMovieForm(movieData);
-      // setMovieDetails(movieData);
-      removeHidden();
-      switchToSearch();
+      innerListener(evt.currentTarget);
     });
   });
+  itemsKey.forEach((item) => {
+    item.addEventListener("keydown", async (evt) => {
+      if (evt.key === "Enter") {
+        console.log(evt.target.querySelector("li"));
+        evt.preventDefault();
+        innerListener(evt.target.querySelector("li"));
+      }
+    });
+  });
+}
+
+async function innerListener(evt) {
+  sessionStorage.clear();
+  const movieData = await createMovieObject(evt);
+  sessionStorage.setItem("movieData", JSON.stringify(movieData));
+  clearMovieList();
+  // fillMovieForm(movieData);
+  // setMovieDetails(movieData);
+  removeHidden();
+  switchToSearch();
 }
 
 function switchToSearch() {

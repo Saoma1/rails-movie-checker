@@ -23,6 +23,7 @@
     font-weight: bold;
     a {
       text-decoration: none;
+      outline: none;
       &:hover,
       &:focus li {
         color: var(--highlight-color);

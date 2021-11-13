@@ -14,5 +14,5 @@ import { keyboardAccess } from "../custom/keyboardAccess";
 
 document.addEventListener("turbolinks:load", () => {
   searchListener();
-  keyboardAccess();
+  // keyboardAccess();
 });
