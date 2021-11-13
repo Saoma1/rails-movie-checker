@@ -41,8 +41,8 @@ const createMovieList = (movieSearchResults) => {
   const listResults = document.querySelector("#results");
   movieSearchResults.slice(0, 10).forEach((result) => {
     const movie = `
-    <a href="./movies">
-      <li class="list-inline-item li"
+    <a href="./movies" class='move'>
+      <li class="list-inline-item li" tabindex="-1"
         data-name="${result.original_title}"
         data-release_date="${result.release_date}"
         data-genre="[${result.genre_ids}]"
@@ -52,7 +52,40 @@ const createMovieList = (movieSearchResults) => {
       </a>`;
     listResults.insertAdjacentHTML("beforeend", movie);
   });
+  addKeyboardAccess();
 };
+
+function addKeyboardAccess() {
+  var listItems = document.getElementsByClassName("move");
+
+  for (var i = 0; i < listItems.length; i++) {
+    listItems[i].addEventListener(
+      "keyup",
+      function (event) {
+        if (event.key === "ArrowUp") {
+          console.log(listItems[i]);
+          if (this.previousElementSibling) {
+            this.previousElementSibling.focus();
+          }
+        } else if (event.key === "ArrowDown") {
+          console.log(listItems[i]);
+          if (this.nextElementSibling) {
+            this.nextElementSibling.focus();
+          }
+        }
+      },
+      false
+    );
+    listItems[i].addEventListener(
+      "mouseover",
+      function (event) {
+        console.log(listItems[i]);
+        this.focus();
+      },
+      false
+    );
+  }
+}
 
 function clearMovieList() {
   const listResults = document.querySelector("#results");
@@ -128,6 +161,9 @@ function populateForm() {
 async function searchListener() {
   const searchInputField = document.querySelector("#search_input");
   searchInputField.addEventListener("keyup", async (evt) => {
+    if (evt.key == "ArrowUp" || evt.key == "ArrowDown") {
+      return;
+    }
     evt.preventDefault();
     const movieResults = await fetchSearch(search_input.value);
     clearMovieList();
