@@ -1,0 +1,30 @@
+#searchbar_wrapper {
+  width: var(--left-side);
+  height: var(--top-height);
+
+  #searchbar {
+    width: 100%;
+    height: inherit;
+  }
+
+  #movie_search {
+    width: 50%;
+    border-radius: 25px;
+  }
+
+  #search_input {
+    width: 100%;
+    height: 2rem;
+    border-radius: 25px;
+    border: 1px solid black;
+    font-size: 1rem;
+    padding-left: 2rem;
+
+    color: var(--primary-font-color);
+    background-color: rgba(var(--primary-bg-color), 1);
+  }
+
+  input:focus {
+    outline: none;
+  }
+}

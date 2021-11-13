@@ -1,5 +1,10 @@
 // Your CSS partials
 @import "authentication/_authentication";
+@import "homepage/_table";
+@import "bars/_sidebar";
+@import "bars/_search";
+@import "_main_wrapper";
+@import "custom/_custom";
 
 *,
 *::before,
@@ -11,31 +16,21 @@
   /* font-family: "Montserrat", sans-serif; */
 }
 
-.container {
-  width: 65%;
-  margin: 0 auto;
-  max-width: 1255px;
-}
-
-.center_middle {
-  min-height: 50vh;
-  position: relative;
-  margin-top: 3rem;
-}
-
 :root,
 [data-theme="default"] {
   --primary-bg-color: 32, 32, 32;
-  --primary-bg-aplha: 0 0% 16.9%;
 
-  --secondary-bg-color: 0, 0%, 12.5%;
-  --secondary-bg-color: 0, 0%, 12.5%;
+  --secondary-bg-color: #2b2b2b;
 
-  --primary-font-color: 0, 0%, 100%;
+  --primary-font-color: #e1e1e1;
   /* --secondary-font-color-hover: #1f1e1e; */
 
   --highlight-color: #f1d546;
   --highlight-color-hover: #c2a202;
+
+  --top-height: 7rem;
+  --left-side: 70%;
+  --right-side: 25%;
 }
 
 .movie_background {
