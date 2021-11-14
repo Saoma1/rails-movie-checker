@@ -1,26 +1,6 @@
-#navbar {
-  background-color: #894d9a;
-  padding: 0.7rem 0;
-
-  #inner_navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 65%;
-    margin: 0 auto;
-  }
-
-  img {
-    width: 2.5rem;
-    margin-left: 1rem;
-  }
-
-  a {
-    // text-decoration: none;
-    color: black;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+#sidebar {
+  position: absolute;
+  background-color: var(--secondary-bg-color);
+  width: var(--right-side);
+  right: 0;
 }

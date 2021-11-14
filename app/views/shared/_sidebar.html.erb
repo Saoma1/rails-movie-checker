@@ -1,18 +1,18 @@
-    <div style='display: flex'>
-      <% if user_signed_in? %>
-        <h1 id='name'> &#128075; <%= current_user.username %></h1>
-      <% else %>
-        <h1> &#128075; sing up now</h1>
-    <% end %>
-      <%= link_to root_path do %>
-        <%= image_tag 'house.svg'%>
-      <% end %>
-      <%= link_to movies_path do %>
-        <%= image_tag 'camera.svg'%>
-      <% end %>
-    </div>
-    <% if user_signed_in? %>
-      <%= link_to 'logout', destroy_user_session_path , method: :delete%>
-    <% else %>
-      <%= link_to 'login/signup', new_user_session_path %>
-    <% end %>
+<div id='sidebar'>
+  <% if user_signed_in? %>
+    <h1 id='name'> &#128075; <%= current_user.username %></h1>
+  <% else %>
+    <h1> &#128075; sing up now</h1>
+  <% end %>
+  <%= link_to root_path do %>
+    <%= image_tag 'house.svg'%>
+  <% end %>
+  <%= link_to movies_path do %>
+    <%= image_tag 'camera.svg'%>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to 'logout', destroy_user_session_path , method: :delete%>
+  <% else %>
+    <%= link_to 'login/signup', new_user_session_path %>
+  <% end %>
+</div>

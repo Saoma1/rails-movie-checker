@@ -17,6 +17,7 @@
   <body class='movie_background'>
     <div class="container">
         <%= render 'shared/search' unless current_page?(new_user_session_path) || current_page?(new_user_registration_path) %>
+        <%= render 'shared/sidebar' unless current_page?(new_user_session_path) || current_page?(new_user_registration_path) %>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
         <%= yield %>
