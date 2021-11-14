@@ -9,6 +9,8 @@ require("@rails/activestorage").start();
 require("channels");
 require("jquery");
 
+import "@fortawesome/fontawesome-free/js/all";
+
 import { searchListener } from "../custom/async";
 import { keyboardAccess } from "../custom/keyboardAccess";
 

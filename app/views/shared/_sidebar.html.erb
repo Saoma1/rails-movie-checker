@@ -1,18 +1,45 @@
 <div id='sidebar'>
-  <% if user_signed_in? %>
-    <h1 id='name'> &#128075; <%= current_user.username %></h1>
-  <% else %>
-    <h1> &#128075; sing up now</h1>
-  <% end %>
-  <%= link_to root_path do %>
-    <%= image_tag 'house.svg'%>
-  <% end %>
-  <%= link_to movies_path do %>
-    <%= image_tag 'camera.svg'%>
-  <% end %>
-  <% if user_signed_in? %>
-    <%= link_to 'logout', destroy_user_session_path , method: :delete%>
-  <% else %>
-    <%= link_to 'login/signup', new_user_session_path %>
-  <% end %>
+  <div class="sidebar_head flex-n">
+    <div class='head_profile_pic'>
+    </div>
+    <div class="head_user flex head_spacing">
+      <% if user_signed_in? %>
+        <p>Hello</p>
+        <h2 id='name'><%= current_user.username %></h2>
+      <% else %>
+        <h1> &#128075; sing up now</h1>
+      <% end %>
+    </div>
+    <div class='head_icons flex head_spacing'>
+      <%= link_to root_path do %>
+        <i class="fas fa-home"></i>
+      <% end %>
+      <% if user_signed_in? %>
+        <%= link_to destroy_user_session_path , method: :delete do%>
+          <i class="fas fa-sign-out-alt"></i>
+        <% end %>
+      <% else %>
+        <%= link_to 'login/signup', new_user_session_path %>
+      <% end %>
+    </div>
+  </div>
+  <div class='sidebar_content flex'>
+    <div class="sidebar_title">
+      <h2>My Movie List</h2>
+    </div>
+    <div class="scroll">
+      <div class="block flex">
+        <% @movies.each do |movie| %>
+          <div class='sidebar_movie_block flex-n'>
+            <img src="https://image.tmdb.org/t/p/w154/<%=movie.movie_poster_url%>" alt="<%= movie.name%>">
+            <div class="movie_content">
+              <h3><%= movie.name %></h3>
+              <p><%= movie.release_date.strftime("%Y-%m-%d") %></p>
+              <p><%= movie.genre %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
