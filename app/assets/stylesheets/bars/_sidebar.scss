@@ -10,13 +10,19 @@
 .sidebar_head {
   background-color: rgba(var(--primary-bg-color), 1);
   height: var(--top-height);
+  padding: 0 1rem;
 
   .head_profile_pic {
-    width: 30%;
+    // width: 30%;
   }
 
   .head_user {
     width: 50%;
+    align-items: flex-start;
+
+    h2 {
+      font-size: 2rem;
+    }
   }
 
   .head_icons {
@@ -33,9 +39,8 @@
     }
   }
   .head_spacing {
-    height: 50%;
+    height: 55%;
     justify-content: space-between;
-    align-items: flex-start;
   }
 }
 
