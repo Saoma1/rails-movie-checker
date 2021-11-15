@@ -7,16 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # User.destroy_all
 
-# User.create(username:'Soto', email: 'soto@soto.com', password: 111111)
+User.create(username:'Soto', email: 'soto@soto.com', password: 111111)
 
 Movie.create(user_id: 1,
   name: "Harry Potter and the Philosopher's Stone",
   genre: "Action,Thriller,Science Fiction",
   release_date: "2012-09-26 00:00:00",
-  movie_poster_url: '/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg')
+  poster_url: '/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg')
 
-  Movie.create(user_id: 1,
-  name: "Godzilla vs. Kong",
-  genre: "Action, Adventure, Fantasy",
-  release_date: "2012-09-26 00:00:00",
-  movie_poster_url: '/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg')
+#   Movie.create(user_id: 1,
+#   name: "Godzilla vs. Kong",
+#   genre: "Action, Adventure, Fantasy",
+#   release_date: "2012-09-26 00:00:00",
+#   poster_url: '/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg')

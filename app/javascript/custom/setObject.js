@@ -19,11 +19,13 @@ async function fillMovieForm() {
   const movieReleaseDateMonth = document.getElementById("movie_release_date_2i");
   const movieReleaseDateDay = document.getElementById("movie_release_date_3i");
   const movieGenre = document.getElementById("movie_genre");
+  const moviePoster = document.getElementById("movie_poster_url");
 
   // form input setters
   movieNameInput.value = movieData.name; //done
   [movieReleaseDateYear.value, movieReleaseDateMonth.value, movieReleaseDateDay.value] = dateFormater(movieData.release_date); //done
   movieGenre.value = movieData.genre; //done
+  moviePoster.value = movieData.img;
 }
 
 const dateFormater = (dateString) => {

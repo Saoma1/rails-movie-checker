@@ -31,8 +31,8 @@
       <div class="block flex">
         <% @movies.each do |movie| %>
           <div class='sidebar_movie_block flex-n'>
-            <% if movie.movie_poster_url %>
-              <img src="https://image.tmdb.org/t/p/w154/<%=movie.movie_poster_url%>" alt="<%= movie.name%>">
+            <% if movie.poster_url %>
+              <img src="https://image.tmdb.org/t/p/w154/<%=movie.poster_url%>" alt="<%= movie.name%>">
             <% else %>
               <%=image_tag("no-poster-available.jpg", alt: "Example Image")%>
             <% end %>
