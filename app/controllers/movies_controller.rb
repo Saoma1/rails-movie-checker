@@ -1,15 +1,14 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.where(user_id: current_user.id)
+    @movies = policy_scope(Movie).where(user: current_user)
+    # @movies = Movie.where(user_id: current_user.id)
     @movie = Movie.new
-  end
-
-  def new
-    @movie = Movie.new
+    authorize @movie
   end
 
   def create
     @movie = Movie.new(movie_params)
+    authorize @movie
     @movie.user_id = current_user.id
     if @movie.save
       redirect_to movies_path
@@ -20,8 +19,9 @@ class MoviesController < ApplicationController
 
   def destroy
     @movie = Movie.find(params[:id])
+    authorize @movie
     @movie.destroy
-    redirect_to movies_path
+    redirect_back(fallback_location: root_path)
   end
 
   def movie_params
