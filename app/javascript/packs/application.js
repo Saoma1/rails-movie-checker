@@ -11,10 +11,10 @@ require("jquery");
 
 import "@fortawesome/fontawesome-free/js/all";
 
-import { searchListener } from "../custom/async";
-import { keyboardAccess } from "../custom/keyboardAccess";
+import { searchListener } from "../custom/searchAPI";
+import { checkWindow } from "../custom/setObject";
 
 document.addEventListener("turbolinks:load", () => {
   searchListener();
-  // keyboardAccess();
+  checkWindow();
 });
