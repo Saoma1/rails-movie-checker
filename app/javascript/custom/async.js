@@ -33,6 +33,7 @@ async function createMovieObject(clickedItem) {
     release_date: fn("release_date"),
     genre: genre,
     img: fn("img"),
+    imgBackdrop: fn("backdrop-img"),
   };
   return movieObj;
 }
@@ -46,11 +47,13 @@ const createMovieList = (movieSearchResults) => {
         data-name="${result.original_title}"
         data-release_date="${result.release_date}"
         data-genre="[${result.genre_ids}]"
-        data-img="${result.poster_path}">
+        data-img="${result.poster_path}"
+        data-backdrop-img="${result.backdrop_path}">
         <p">${result.original_title}</p>
       </li>
       </a>`;
     listResults.insertAdjacentHTML("beforeend", movie);
+    console.log(result.backdrop_path);
   });
   addKeyboardAccess();
 };
@@ -92,7 +95,8 @@ function clearMovieList() {
   listResults.innerHTML = "";
 }
 
-async function fillMovieForm(movieData) {
+async function fillMovieForm() {
+  const movieData = JSON.parse(sessionStorage.movieData);
   // form input getters
   const movieNameInput = document.getElementById("movie_name");
   const movieReleaseDateYear = document.getElementById("movie_release_date_1i");
@@ -106,16 +110,29 @@ async function fillMovieForm(movieData) {
   movieGenre.value = movieData.genre; //done
 }
 
-async function setMovieDetails(movieData) {
-  const moviePoster = document.getElementById("movie_poster");
+async function setMovieDetails() {
+  const movieData = JSON.parse(sessionStorage.movieData);
+  console.log(movieData);
+
+  const movieBackdrop = document.querySelector(".movie_backdrop");
+  const moviePoster = document.querySelector("#movie_poster");
   const movieDetails = document.querySelector("#movie_details");
+
+  // set backdrop
+  movieBackdrop.innerHTML = `<img src="https://image.tmdb.org/t/p/w780/${movieData.imgBackdrop}" alt="${movieData.name}">`;
 
   // set poster
   moviePoster.innerHTML = `<img src="https://image.tmdb.org/t/p/w154/${movieData.img}" alt="${movieData.name}">`;
 
   const movieDetailsDiv = `
-      <h3>${movieData.name}</h3>
-      <p>genre: ${movieData.genre}</p>
+      <h1>${movieData.name}</h1>
+      <div class='tags flex-n'>
+        ${movieData.genre
+          .map((tag) => {
+            return `<p class='tag'>${tag}</p>`;
+          })
+          .join("")}
+      </div>
       <p>release date: ${movieData.release_date}</p>
   `;
   // set details
@@ -152,9 +169,6 @@ async function innerListener(evt) {
   const movieData = await createMovieObject(evt);
   sessionStorage.setItem("movieData", JSON.stringify(movieData));
   clearMovieList();
-  // fillMovieForm(movieData);
-  // setMovieDetails(movieData);
-  removeHidden();
   switchToSearch();
 }
 
@@ -167,9 +181,10 @@ if (window.location.pathname == "/movies") {
 }
 
 function populateForm() {
-  console.log(JSON.parse(sessionStorage.movieData));
   const check = document.querySelector("#added_movies");
-  console.log(check);
+  fillMovieForm();
+  setMovieDetails();
+  removeHidden();
 }
 
 async function searchListener() {

@@ -31,7 +31,11 @@
       <div class="block flex">
         <% @movies.each do |movie| %>
           <div class='sidebar_movie_block flex-n'>
-            <img src="https://image.tmdb.org/t/p/w154/<%=movie.movie_poster_url%>" alt="<%= movie.name%>">
+            <% if movie.movie_poster_url %>
+              <img src="https://image.tmdb.org/t/p/w154/<%=movie.movie_poster_url%>" alt="<%= movie.name%>">
+            <% else %>
+              <%=image_tag("no-poster-available.jpg", alt: "Example Image")%>
+            <% end %>
             <div class="movie_content">
               <h3><%= movie.name %></h3>
               <p><%= movie.release_date.strftime("%Y-%m-%d") %></p>

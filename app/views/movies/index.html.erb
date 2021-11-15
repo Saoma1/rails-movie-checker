@@ -1,47 +1,21 @@
-<div class="center_middle">
-  <div class="wrapper">
-
-    <div class="left_wrapper">
-      <div class="top_left">
-
-          <div class="new_movie_wrapper hidden">
-            <div id="movie_poster">
-            </div>
-
-            <div class="movie_details">
-              <div id='movie_details'>
-              </div>
-              <%= simple_form_for(@movie) do |f| %>
-                <div class="form_inputs hidden">
-                  <%= f.input :name, id: 'movie_name' %>
-                  <%= f.input :release_date, as: :date, start_year: Date.today.year - 90, id: 'release_date' %>
-                  <%= f.input :genre, id: 'genre' %>
-                </div>
-                <%= f.submit class: 'btn', value: 'Add Movie' %>
-              <% end %>
-            </div>
-
-          </div>
+<div class="main_container">
+  <div class="movie_backdrop"></div>
+  <div class="new_movie_wrapper hidden">
+    <div id="movie_poster">
+    </div>
+    <div class="movie_details">
+      <div id='movie_details'>
       </div>
-
-      <table class='main_table' >
-        <thead id='added_movies'>
-          <tr>
-            <th>name</th>
-            <th>genre</th>
-            <th>release date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @movies.each do |movie| %>
-            <tr>
-              <td class='left'><%= movie.name %></td>
-              <td><%= movie.genre %></td>
-              <td><%= movie.release_date.strftime("%Y-%m-%d") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= simple_form_for(@movie) do |f| %>
+        <div class="form_inputs hidden">
+          <%= f.input :name, id: 'movie_name' %>
+          <%= f.input :release_date, as: :date, start_year: Date.today.year - 90, id: 'release_date' %>
+          <%= f.input :genre, id: 'genre' %>
+        </div>
+        <%= button_tag(type: "submit", class: 'btn') do%>
+          <i class="fas fa-plus-square"></i>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

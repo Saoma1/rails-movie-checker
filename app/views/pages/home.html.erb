@@ -41,6 +41,25 @@
           <% end %>
         </tbody>
       </table>
+      <h2>old table from search</h2>
+      <table class='main_table' >
+        <thead id='added_movies'>
+          <tr>
+            <th>name</th>
+            <th>genre</th>
+            <th>release date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movies.each do |movie| %>
+            <tr>
+              <td class='left'><%= movie.name %></td>
+              <td><%= movie.genre %></td>
+              <td><%= movie.release_date.strftime("%Y-%m-%d") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -7,8 +7,8 @@
 @import "homepage/_table";
 @import "bars/_sidebar";
 @import "bars/_search";
-@import "_main_wrapper";
 @import "custom/_custom";
+@import "pages/_moviesSearch";
 
 *,
 *::before,
@@ -22,6 +22,7 @@
 
 body {
   color: var(--primary-font-color);
+  background-color: #f7f7f7;
 }
 
 :root,
