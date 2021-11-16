@@ -4,17 +4,16 @@
         <thead>
           <tr>
             <th>name</th>
+            <th>year</th>
             <th>main</th>
-            <th>marked</th>
           </tr>
         </thead>
         <tbody>
           <% @torrents.each do |torrent| %>
             <tr>
-              <td class='left'><a href="<%= torrent.url %>"><%= torrent.title %></a></td>
-              <td <%= torrent.main %>></td>
-              <td></td>
-              <%# <td><%= Time.now.utc %>
+              <td class='left'><a href="<%= torrent.url %>" target="_blank"><%= torrent.title %></a></td>
+              <td><%= torrent.release_year %></td>
+              <td><%= torrent.main == 't' ? 'yes' : 'no' %></td>
             </tr>
           <% end %>
         </tbody>

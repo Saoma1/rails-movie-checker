@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2021_11_16_211542) do
     t.string "release_year"
     t.string "url"
     t.string "main"
-    t.string "boolean"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["title"], name: "index_torrents_on_title", unique: true

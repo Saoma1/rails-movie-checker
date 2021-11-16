@@ -60,12 +60,12 @@ class WebScrapper < Kimurai::Base
     if app_response.css('div#mCSB_1_container').any?
       a = app_response.css('div#mCSB_1_container h3 a')
       item[:main] = true
-      item[:url] = a.attr('href')
+      item[:url] = @base_uri + a.attr('href').to_s
       item[:title] = a.text
       item[:release_year] = a.attr('href').to_s[-5..-2]
     else
       item[:main] = false
-      item[:url] = alt_href
+      item[:url] = @base_uri + alt_href.to_s
       item[:release_year] = 'not yet'
       item[:title] = app_response.css('div.box-info-heading h1').text
     end
