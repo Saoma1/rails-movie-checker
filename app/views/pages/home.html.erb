@@ -12,7 +12,7 @@
           <% @torrents.each do |torrent| %>
             <tr>
               <td class='left'><a href="<%= torrent.url %>"><%= torrent.title %></a></td>
-              <td></td>
+              <td <%= torrent.main %>></td>
               <td></td>
               <%# <td><%= Time.now.utc %>
             </tr>

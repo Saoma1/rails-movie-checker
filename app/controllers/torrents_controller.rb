@@ -1,4 +1,6 @@
 class TorrentsController < ApplicationController
+  validates :title, uniqueness: true
+
   def index
     @torrents = Torrent.all
     authorize @movies
@@ -7,7 +9,11 @@ class TorrentsController < ApplicationController
   def create
     @torrent = Torrent.new(torrent_params)
     authorize @torrent
-    @torrent.save
+    if @torrent.save!
+      puts 'saved'
+    else
+      raise 'some error'
+    end
   end
 
   def torrent_params
