@@ -1,61 +1,20 @@
-<div class="center_middle">
+<div class="main_container full_height">
   <div class="wrapper">
-
-    <div class="left_wrapper">
-      <div class="top_left">
-
-          <div class="new_movie_wrapper hidden">
-            <div id="result">
-            </div>
-
-            <div class="movie_details">
-              <div id='movie_details'>
-              </div>
-              <%= simple_form_for(@movie) do |f| %>
-                <%= f.input :name, id: 'movie_name' %>
-                <%= f.submit class: 'btn', value: 'Add Movie' %>
-              <% end %>
-            </div>
-
-          </div>
-      </div>
       <table>
         <thead>
           <tr>
             <th>name</th>
-            <th>se</th>
-            <th>le</th>
-            <th>size</th>
-            <th>found on</th>
+            <th>main</th>
+            <th>marked</th>
           </tr>
         </thead>
         <tbody>
-          <% @movies.each do |movie| %>
+          <% @torrents.each do |torrent| %>
             <tr>
-              <td class='left'><%= movie.name %></td>
+              <td class='left'><a href="<%= torrent.url %>"><%= torrent.title %></a></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td><%= Time.now.utc %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <h2>old table from search</h2>
-      <table class='main_table' >
-        <thead id='added_movies'>
-          <tr>
-            <th>name</th>
-            <th>genre</th>
-            <th>release date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @movies.each do |movie| %>
-            <tr>
-              <td class='left'><%= movie.name %></td>
-              <td><%= movie.genre %></td>
-              <td><%= movie.release_date.strftime("%Y-%m-%d") %></td>
+              <%# <td><%= Time.now.utc %>
             </tr>
           <% end %>
         </tbody>
