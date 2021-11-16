@@ -1,7 +1,6 @@
 class MoviesController < ApplicationController
   def index
     @movies = policy_scope(Movie).where(user: current_user)
-    # @movies = Movie.where(user_id: current_user.id)
     @movie = Movie.new
     authorize @movie
   end
