@@ -1,5 +1,4 @@
 class TorrentsController < ApplicationController
-  validates :title, uniqueness: true
 
   def index
     @torrents = Torrent.all

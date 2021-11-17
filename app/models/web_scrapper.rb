@@ -72,11 +72,11 @@ class WebScrapper < Kimurai::Base
 
     logger.info item
 
-    Torrent.create(item)
-    # begin
-    # rescue
-    #   puts "Torrent Exists!"
-    # end
+    begin
+      Torrent.create(item)
+    rescue
+      puts "Torrent Exists!"
+    end
     # save_to "torrent_urls.json", item, format: :pretty_json, position: false
   end
 end
