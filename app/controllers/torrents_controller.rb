@@ -3,7 +3,7 @@ class TorrentsController < ApplicationController
 
   def index
     @torrents = Torrent.all
-    authorize @movies
+    authorize @torrents
   end
 
   def create

@@ -1,4 +1,5 @@
 require 'kimurai'
+require 'date'
 
 class WebScrapper < Kimurai::Base
   @name = 'torrent_spider'
@@ -25,6 +26,7 @@ class WebScrapper < Kimurai::Base
 
   def parse(response, url:, data: {})
     @base_uri = 'https://1337x.to'
+    id = 1
     page = 9
     today = DateTime.now
     yesterday = (today - 1)
@@ -38,14 +40,12 @@ class WebScrapper < Kimurai::Base
           date = app.css('td.coll-date').text.to_s
           date = DateTime.parse(date)
 
-          logger.info 'before date'
-
           throw(:done, true) if date < yesterday
 
           browser.visit(@base_uri + alt_href)
           app_response = browser.current_response #on the torrent page
-          logger.info 'end'
-          scraped_torrents(app_response, alt_href)
+          scraped_torrents(app_response, alt_href, date)
+          id += 1
         end
         page += 1
       end
@@ -54,8 +54,7 @@ class WebScrapper < Kimurai::Base
 
   private
 
-  def scraped_torrents(app_response, alt_href)
-    logger.info 'TOP'
+  def scraped_torrents(app_response, alt_href, date)
     item = {}
     if app_response.css('div#mCSB_1_container').any?
       a = app_response.css('div#mCSB_1_container h3 a')
@@ -70,13 +69,13 @@ class WebScrapper < Kimurai::Base
       item[:title] = app_response.css('div.box-info-heading h1').text
     end
 
-    logger.info item
-
-    Torrent.create(item)
     # begin
+      Torrent.create(item)
     # rescue
     #   puts "Torrent Exists!"
     # end
     # save_to "torrent_urls.json", item, format: :pretty_json, position: false
   end
 end
+
+WebScrapper.crawl!

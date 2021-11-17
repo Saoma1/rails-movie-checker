@@ -32,6 +32,7 @@ gem 'devise'
 gem 'pundit'
 
 gem 'kimurai'
+gem 'whenever', require: false
 
 gem 'font-awesome-sass', '~> 5.15.1'
 gem 'simple_form'
