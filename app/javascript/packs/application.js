@@ -10,6 +10,7 @@ require("channels");
 require("jquery");
 
 import "@fortawesome/fontawesome-free/js/all";
+import "stylesheets/application";
 
 import { searchListener } from "../custom/searchAPI";
 import { checkWindow } from "../custom/setObject";
